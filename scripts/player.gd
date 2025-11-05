@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
+var deathScreen = preload("res://scenes/deathScene.tscn")
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -78,6 +79,12 @@ func change_health(_amount):
 	print("Health: " + str(health))
 
 func die():
+	#var death = deathScreen.instantiate()
+	#get_tree().get_current_scene().add_child(death)
+	#get_tree().set_current_scene(death)
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/deathScene.tscn")
+
+	
 	print("You died!")
 
 func _input(event: InputEvent) -> void:

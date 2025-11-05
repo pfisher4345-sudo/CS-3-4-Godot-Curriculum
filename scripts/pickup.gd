@@ -39,12 +39,15 @@ func _on_body_entered(body):
 func configure_pickup(_type : String, _label : String) -> bool:
 	if _type == "coin":
 		if _label == "copper":
+			color = Color(1.0, 0.5, 0.0, 1.0)
 			amount = 1
 			return true
 		elif _label == "silver":
+			color = Color(.5, 0.0, 1.0, 1.0)
 			amount = 5
 			return true
 		elif _label == "gold":
+			color = Color(1.0, 1.0, 0.0, 1.0)
 			amount = 10
 			return true
 		else: return false

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dul2xembryuie"]
+
+[ext_resource type="Texture2D" uid="uid://catejg1n5186g" path="res://assets/pixel-art-tombstone-ghost-old-gravestone-item-game-design-vector-illustration-pixel-art-tombstone-ghost-181765329.png" id="1_5mfmg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cgnp"]
+atlas = ExtResource("1_5mfmg")
+region = Rect2(0, 0, 800, 680)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r5f7j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cgnp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(638, 387)
+scale = Vector2(1.5875, 1.1382353)
+sprite_frames = SubResource("SpriteFrames_r5f7j")

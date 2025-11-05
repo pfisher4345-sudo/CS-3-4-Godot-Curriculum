@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://cpcjxr26k8tgw"]
+[gd_scene load_steps=15 format=4 uid="uid://cpcjxr26k8tgw"]
 
 [ext_resource type="PackedScene" uid="uid://cqvpxnx2pwqhk" path="res://scenes/player.tscn" id="1_2j8vx"]
 [ext_resource type="Script" uid="uid://bnk74kv0ariww" path="res://scripts/game_world.gd" id="2_3k9wy"]
 [ext_resource type="TileSet" uid="uid://wio17aw1fnr2" path="res://tilesets/dungeon.tres" id="3_fpihc"]
+[ext_resource type="Script" uid="uid://de3euvnypnlp1" path="res://scripts/shop.gd" id="3_trceg"]
 [ext_resource type="PackedScene" uid="uid://clkh0aurm6cru" path="res://scenes/spike.tscn" id="4_j0bf8"]
 [ext_resource type="PackedScene" uid="uid://hlj4dyfo1u8l" path="res://scenes/coin.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bqems63ld323y" path="res://scenes/health_potion.tscn" id="6_tefeu"]
@@ -10,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c6cn64y21oke7" path="res://scenes/torch.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://c8mf4562xlcu8" path="res://scenes/door.tscn" id="7_tipki"]
 [ext_resource type="PackedScene" uid="uid://5p2ev4o8h7si" path="res://scenes/lever.tscn" id="8_85g3d"]
+[ext_resource type="PackedScene" uid="uid://itwac34ln74u" path="res://scenes/merchant.tscn" id="10_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://c6gaa4kprawy0" path="res://scenes/enemies/slime.tscn" id="11_ya4ey"]
-[ext_resource type="Script" uid="uid://co5hnowm81a7y" path="res://scripts/enemies/enemy_base.gd" id="12_eb6dy"]
 
 [sub_resource type="Environment" id="Environment_jyhfs"]
 background_energy_multiplier = 0.1
@@ -26,6 +27,18 @@ environment = SubResource("Environment_jyhfs")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.103743605, 0.103743516, 0.103743516, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Tilemap" type="Node2D" parent="."]
 scale = Vector2(2, 2)
@@ -45,6 +58,7 @@ tile_set = ExtResource("3_fpihc")
 [node name="StuffOnTop" type="TileMapLayer" parent="Tilemap"]
 tile_map_data = PackedByteArray("AADv//3/AAAEAAYAAAAHAAYAAAAEAAYAAAAHAP3/AAAEAAYAAAAMAAIAAAAIAAYAAAAMAP7/AAAIAAYAAAAOAAUAAAAIAAYAAAD2/wYAAAAFAAYAAAAGAP7/AAAEAAcAAAD5//7/AAAEAAcAAAAFAPX/AAAHAAcAAAAFAPb/AAAIAAYAAAAEAPb/AAAIAAYAAAD+//X/AAAEAAYAAAA=")
 tile_set = ExtResource("3_fpihc")
+script = ExtResource("3_trceg")
 
 [node name="Torch3" parent="Tilemap/StuffOnTop" instance=ExtResource("7_o6xl0")]
 position = Vector2(-270, 98)
@@ -58,36 +72,59 @@ position = Vector2(195, -56.5)
 [node name="Torch2" parent="Tilemap/StuffOnTop" instance=ExtResource("7_o6xl0")]
 position = Vector2(-204.5, -56.5)
 
+[node name="Torch4" parent="Tilemap/StuffOnTop" instance=ExtResource("7_o6xl0")]
+position = Vector2(50, -24)
+
 [node name="HealthPotion" parent="Tilemap/StuffOnTop" instance=ExtResource("6_tefeu")]
 position = Vector2(18, 17.5)
 amount = 5
 
+[node name="HealthPotion2" parent="Tilemap/StuffOnTop" instance=ExtResource("6_tefeu")]
+position = Vector2(-82, 7)
+amount = 5
+
 [node name="Coin" parent="Tilemap/StuffOnTop" instance=ExtResource("5_tbgi4")]
 position = Vector2(-9.5, 26)
+color = Color(1, 0.5, 0, 1)
 
 [node name="Door" parent="Tilemap/StuffOnTop" instance=ExtResource("7_tipki")]
 position = Vector2(24, -24)
 
-[node name="Lever" parent="Tilemap/StuffOnTop" instance=ExtResource("8_85g3d")]
+[node name="Lever" parent="Tilemap/StuffOnTop" node_paths=PackedStringArray("child") instance=ExtResource("8_85g3d")]
 position = Vector2(-183.5, 105)
+child = NodePath("../Door")
 
 [node name="Chest" parent="Tilemap/StuffOnTop" instance=ExtResource("6_tipki")]
 position = Vector2(150, 29)
 
+[node name="Coin2" parent="Tilemap/StuffOnTop" instance=ExtResource("5_tbgi4")]
+position = Vector2(48, -1)
+color = Color(1, 1, 0, 1)
+amount = 10
+label = "gold"
+
+[node name="Coin3" parent="Tilemap/StuffOnTop" instance=ExtResource("5_tbgi4")]
+position = Vector2(-27.5, 9.5)
+color = Color(0.5, 0, 1, 1)
+amount = 5
+label = "silver"
+
+[node name="Torch5" parent="Tilemap/StuffOnTop" instance=ExtResource("7_o6xl0")]
+position = Vector2(230.5, 111)
+
+[node name="Torch6" parent="Tilemap/StuffOnTop" instance=ExtResource("7_o6xl0")]
+position = Vector2(-138.5, 54)
+
+[node name="Torch7" parent="Tilemap/StuffOnTop" instance=ExtResource("7_o6xl0")]
+position = Vector2(19.5, -182.5)
+
+[node name="Merchant" parent="Tilemap" instance=ExtResource("10_eb6dy")]
+position = Vector2(0, -169)
+
 [node name="Player" parent="." instance=ExtResource("1_2j8vx")]
 unique_name_in_owner = true
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+position = Vector2(0, 1)
 
 [node name="slime" parent="." instance=ExtResource("11_ya4ey")]
-position = Vector2(-496, 36)
-script = ExtResource("12_eb6dy")
-move_points = Array[Vector2]([Vector2(-350, -21), Vector2(-520, -300)])
+position = Vector2(-455, -62)
+move_points = Array[Vector2]([Vector2(-486, 128), Vector2(-350, 200)])

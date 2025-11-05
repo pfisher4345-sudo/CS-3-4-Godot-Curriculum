@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="inventory_item" load_steps=2 format=3 uid="uid://bty6ul6a7ooul"]
+
+[ext_resource type="Script" uid="uid://de3euvnypnlp1" path="res://scripts/shop.gd" id="1_7vekg"]
+
+[resource]
+script = ExtResource("1_7vekg")
+item_name = "MaGiC cOoKiE"
+value = 5
+metadata/_custom_type_script = "uid://de3euvnypnlp1"

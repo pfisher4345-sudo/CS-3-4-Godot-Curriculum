@@ -1,7 +1,7 @@
 extends npc
 
-@onready var sprite: Sprite2D = $Sprite2D
 
+@onready var sprite: Sprite2D = $Sprite2D
 
 
 
@@ -18,9 +18,16 @@ func _physics_process(delta: float) -> void:
 
 func _on_detection_radius_body_entered(body: Node2D) -> void:
 	super._on_detection_radius_body_entered(body)
-	pass # Replace with function body.
+	if body is Player:
+		is_hostile = true
+		print("slime is hostile")
+	
+	# Replace with function body.
 
 
 func _on_detection_radius_body_exited(body: Node2D) -> void:
 	super._on_detection_radius_body_exited(body)
-	pass # Replace with function body.
+	if body is Player:
+		is_hostile = false
+		print("slime is not hostile")
+	 # Replace with function body.
